@@ -245,9 +245,21 @@ public class FirstGUI extends JFrame implements ActionListener {
          }
       }
    }
-   public static String valuate(String eq) throws Exception{
+   /**
+     * Evaluates mathematical expressions
+     * @param eq Expression to evaluate
+     * @return Result of evaluation
+     * @throws Exception if an error occurs during evaluation
+     */
+    public static String valuate(String eq) throws Exception {
+        // ... (valuate method implementation)
+      for(int x = 0; x<eq.length()-1; x++){
+         if(Character.isDigit(eq.charAt(x))&&eq.substring(x+1,x+2).equals("π")){
+            eq = eq.substring(0,x+1)+" * "+eq.substring(x+1,x+2);
+         }
+      }
       eq = eq.replaceAll("%", " / 100 ");
-      eq = eq.replaceAll("π", " * 3.141592654 ");
+      eq = eq.replaceAll("π", "3.141592654 ");
       eq = eq.replaceAll("÷", "/");
       eq = eq.replaceAll("×", "*");
       eq = eq.replaceAll("−", "-");
@@ -275,14 +287,11 @@ public class FirstGUI extends JFrame implements ActionListener {
          double constant = 0;
          int pointer = 0;
          int op = signs.size();
-         //System.out.println(nums);
-         //System.out.println(signs);
          if((nums.size()-1)!=signs.size()){
             return "Error";
          } else if (nums.size()==1) {
             return ""+nums.get(0);
          } else{
-            //System.out.println("op :"+op+" "+signs.size());
             for (int k = op; k>0; k--){
                if(signs.contains("/")){
                   pointer = signs.indexOf("/");
@@ -325,7 +334,6 @@ public class FirstGUI extends JFrame implements ActionListener {
                   nums.set(pointer+1, null);
                   signs.set(pointer,null);
                   for (int c = pointer+1; c<(nums.size()-1); c++){
-                     //System.out.println(nums);
                      if(nums.get(c+1)!=null) {
                         double temp = nums.get(c + 1);
                         nums.set(c + 1, null);
@@ -358,7 +366,6 @@ public class FirstGUI extends JFrame implements ActionListener {
          }
       }catch (Exception e){
          answer = "Error";
-         //e.printStackTrace();
       }
       return answer;
    }
